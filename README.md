@@ -21,7 +21,21 @@ Our server signing address is `0xa75D20DdA7883CBF720b131938B6DcE4d733F877`. This
 
 The signature reduction is as follows.
 
-### Example using Ethers.js:
+### Our JS Library (which uses axios and ethers.js):
+```js
+const verify = require('ensverify');
+
+// verify a specfici name and address to be correct
+verify('registrar.firefly.eth', '0x6fC21092DA55B392b045eD78F4732bff3C580e2c')
+.then(result => console.log(result)) // true
+.catch(console.log);
+
+// Returns Promise Object
+// true if verified correct
+// throws otherwise
+```
+
+### Raw Example (using axios and ethers.js):
 ```js
 const axios = require('axios');
 const ethers = require('ethers');
