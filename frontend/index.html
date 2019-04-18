@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>ENSVerify - Two-Factory API for the Ethereum Name Service (ENS)</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/landing-page.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light static-top" style="padding-top: 20px; padding-bottom: 20px;">
+    <div class="container">
+      <a class="navbar-brand" href="#"><b>ENSVerify <small>Two-Factor for ENS</small></b></a>
+      <span>
+        <a class="btn btn-link" href="#">Github</a>
+        <a class="btn btn-primary" href="#chapter4">Our API</a>
+      </span>
+    </div>
+  </nav>
+
+  <!-- Masthead -->
+  <header class="masthead text-white text-center" style="background: url(https://media.godistributed.com/img/images/Nodes_1TGgsOv.width-800.jpg); background-size: cover;">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5">Verification of ENS names using elliptic signatures</h1>
+        </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <form>
+            <div class="form-row center">
+                <a href="#chapter4" class="btn btn-block btn-lg btn-primary">Checkout our API</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Icons Grid -->
+  <section class="features-icons bg-light text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-screen-desktop m-auto text-primary"></i>
+            </div>
+            <h3>Second-Factory Verification</h3>
+            <p class="lead mb-0">Instead of relying solely on your connection or infura.io for your name reduction, you can get a second opinion.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-layers m-auto text-primary"></i>
+            </div>
+            <h3>Elliptic Curve Signatures</h3>
+            <p class="lead mb-0">Our API signs payloads at a pre-specified address, so even if your connection is compromised, they cannot compromise the signature.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-check m-auto text-primary"></i>
+            </div>
+            <h3>Timestamped</h3>
+            <p class="lead mb-0">We timestamp our signatures so you know they are recent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Icons Grid -->
+  <a name="chapter4"></a>
+  <section class="bg-light text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-9 left" style="text-align: left;">
+          <h2>API</h2>
+
+          <br /><br />
+
+          <h5>Our Signing Address</h5>
+          <b>0xa75D20DdA7883CBF720b131938B6DcE4d733F877</b>
+
+          <br /><br />
+
+          <h5>Our Endpoint</h5>
+          <b>https://verify.ensverify.com/</b>
+
+          <br /><br />
+
+          <br /><br />
+
+          <h3>API Example in JS <small>using ethers.js</small></h3>
+
+          <pre style="background: #FFF; font-size: 15px; text-align: left; padding: 20px;">
+            <code style="text-align: left;">
+const axios = require('axios');
+const ethers = require('ethers');
+
+// name and reduced address to verify
+const name = 'registrar.firefly.eth';
+const address = '0x6fC21092DA55B392b045eD78F4732bff3C580e2c';
+
+// provider address
+const provider = '0xa75D20DdA7883CBF720b131938B6DcE4d733F877';
+
+// json params for axios
+const payload = axios.post('https://verify.ensverify.com/', JSON.stringify({ name }))
+.then(result => {
+  // build payload (minimized for data)
+  const payload = {
+    name, // name to verify
+    address, // address to verify
+    timestamp: result.data.t, // call timestamp
+  };
+
+  // signed digest
+  const hashDigest = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(JSON.stringify(payload)));
+
+  // verified
+  if (provider == ethers.utils.recoverAddress(hashDigest, result.data.s)) {
+    console.log('Name has been verified by ENSVerify.com!');
+  }
+})
+.catch(console.log);
+</code>
+          </pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Testimonials -->
+  <section class="testimonials text-center bg-light">
+    <div class="container">
+      <h2 class="mb-5">Who Made This</h2>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+            <img class="img-fluid rounded-circle mb-3" src="https://avatars0.githubusercontent.com/u/9806174?s=460&v=4" alt="">
+            <h5>Nick Dodson</h5>
+            <p class="font-weight-light mb-0">Independant engineering Ethereum guru and lover of all things crypto.</p>
+<a href="https://github.com/silentcicero" target="_blank">Github</a> .
+            <a href="https://twitter.com/iamnickdodson" target="_blank">@IAmNickDodson</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="call-to-action text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h2 class="mb-4">Ready to get started? Integrate ENSVerify now!</h2>
+        </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <form>
+            <div class="form-row">
+              <div class="col-12">
+                <a href="https://github.com/SilentCicero/ensverify#example-using-ethersjs" class="btn btn-block btn-lg btn-primary">Use the API</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <a href="https://github.com">About</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="https://twitter.com/iamnickdodson">Contact</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="/terms.html" target="_blank">Terms of Use</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="https://privacypolicygenerator.info/">Privacy Policy</a>
+            </li>
+          </ul>
+          <p class="text-muted small mb-4 mb-lg-0">&copy; ENSVerify 2019. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 h-100 text-center text-lg-right my-auto"></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

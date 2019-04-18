@@ -71,6 +71,10 @@ node ./verify-example.js
 
 We use now.sh to host our Lambda service.
 
+## Todo
+
+1) Remove infura dependancy, perhaps use a differnet service like etherscan.
+
 ## License
 
 This project is licensed under the MIT license, Copyright (c) 2019 Nick Dodson. For more information see LICENSE.md.
