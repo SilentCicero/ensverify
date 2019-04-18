@@ -11,6 +11,7 @@ The Ethereum Name Service (ENS) is awesome, but I've found that I don't always l
 The code provided is a simple front-end and lambda server written in NodeJS.
 
 `/frontend` the website frontend
+`/package` our front-end or client-side NPM package
 `/server` the lambda server which reduces and signs ENS names
 
 ## Using the Service to Verify a Name
