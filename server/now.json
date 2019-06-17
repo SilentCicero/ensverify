@@ -13,6 +13,7 @@
     }
   ],
   "env": {
-    "ensVerifyPrivateKey": "@ensverifyprivatekey"
+    "ensVerifyPrivateKey": "@ensverifyprivatekey",
+    "etherscanensverify": "@etherscanensverify"
   }
 }

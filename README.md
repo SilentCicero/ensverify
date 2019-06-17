@@ -4,7 +4,11 @@ A micro-api service which provides a second factor for name reduction verificati
 
 ## About
 
-The Ethereum Name Service (ENS) is awesome, but I've found that I don't always like to trust a single source of name reduction (i.e. infura via my personal connection). I wanted an additional party to reduce the name via their connection, and sign a payload with a pre-established known-address reduction. This way, if my connection is compromised, I know the name reduction from the second party could not be spoofed, as they only sign specific name reductions. This service adds a second layer of security for ENS that is both easy to setup, establish and verify.
+The Ethereum Name Service (ENS) is awesome, but I've found that I don't always like to trust a single source of name reduction (i.e. infura via my personal connection).
+
+I wanted an additional party to reduce the name via their connection, and sign a payload with a pre-established known-address reduction. This way, if my connection is compromised, I know the name reduction from the second party could not be spoofed, as they only sign specific name reductions. This service adds a second layer of security for ENS that is both easy to setup, establish and verify.
+
+ENSVerify now uses Etherscan as its primary API provider.
 
 ## Layout
 
@@ -85,10 +89,6 @@ node ./verify-example.js
 ## Now/Zeit
 
 We use now.sh to host our Lambda service.
-
-## Todo
-
-1) Remove infura dependancy, perhaps use a differnet service like etherscan.
 
 ## License
 

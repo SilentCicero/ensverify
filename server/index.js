@@ -12,7 +12,7 @@ const validationSchema = {
 };
 
 // setup infura provider mainnet
-const provider = new providers.InfuraProvider("homestead", "942ac122c104479cab942a562071d460");
+const provider = new providers.EtherscanProvider("homestead", process.env.etherscanensverify);
 
 // Notify lambda
 module.exports = async (req, res) => {

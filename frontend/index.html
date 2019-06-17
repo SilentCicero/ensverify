@@ -41,7 +41,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mx-auto">
-          <h1 class="mb-5">Verification of ENS names using elliptic signatures</h1>
+          <h1 class="mb-5">Secondary verification of ENS names via cryptographic signatures!</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
           <form>
@@ -63,8 +63,8 @@
             <div class="features-icons-icon d-flex">
               <i class="icon-screen-desktop m-auto text-primary"></i>
             </div>
-            <h3>Second-Factory Verification</h3>
-            <p class="lead mb-0">Instead of relying solely on your connection or infura.io for your name reduction, you can get a second opinion.</p>
+            <h3>Second-Factor Verification</h3>
+            <p class="lead mb-0">Instead of relying solely on your connection, router of public wifi for your name resolution, ENSVerify will give you an uncorruptable second opinion.</p>
           </div>
         </div>
         <div class="col-lg-4">
@@ -73,13 +73,13 @@
               <i class="icon-layers m-auto text-primary"></i>
             </div>
             <h3>Elliptic Curve Signatures</h3>
-            <p class="lead mb-0">Our API signs payloads at a pre-specified address, so even if your connection is compromised, they cannot compromise the signature.</p>
+            <p class="lead mb-0">Our API signs payloads at a pre-specified address, so even if your connection is compromised, they cannot compromise our signature.</p>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="features-icons-item mx-auto mb-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
-              <i class="icon-check m-auto text-primary"></i>
+              <i class="icon-clock m-auto text-primary"></i>
             </div>
             <h3>Timestamped</h3>
             <p class="lead mb-0">We timestamp our signatures so you know they are recent.</p>
@@ -112,14 +112,36 @@
 
           <br /><br />
 
-          <h3>API Example in JS <small>using ethers.js</small></h3>
+          <h3>API via Our JS Library</h3>
 
           <pre style="background: #FFF; font-size: 15px; text-align: left; padding: 20px;">
             <code style="text-align: left;">
-const axios = require('axios');
+const verify = require('ensverify');
+
+// verify a specfici name and address to be correct
+verify('registrar.firefly.eth', '0x6fC21092DA55B392b045eD78F4732bff3C580e2c')
+.then(result => console.log(result)) // true
+.catch(console.log);
+
+// Returns Promise Object
+// true if verified correct
+// throws otherwise
+            </code>
+          </pre>
+
+          <h3>API via CURL</h3>
+
+          <pre style="background: #FFF; font-size: 15px; text-align: left; padding: 20px;">
+<code>curl -L -XPOST "https://verify.ensverify.com" -d '{"name":"registrar.firefly.eth"}'
+            </code>
+          </pre>
+
+          <h3>API via axios and ethers</h3>
+
+          <pre style="background: #FFF; font-size: 15px; text-align: left; padding: 20px;"><code>const axios = require('axios');
 const ethers = require('ethers');
 
-// name and reduced address to verify
+// name and address in question (unverified by resolver)
 const name = 'registrar.firefly.eth';
 const address = '0x6fC21092DA55B392b045eD78F4732bff3C580e2c';
 
@@ -142,10 +164,13 @@ const payload = axios.post('https://verify.ensverify.com/', JSON.stringify({ nam
   // verified
   if (provider == ethers.utils.recoverAddress(hashDigest, result.data.s)) {
     console.log('Name has been verified by ENSVerify.com!');
+  } else {
+    console.log('The name has not been verified.');
   }
 })
 .catch(console.log);
-</code>
+            </code>
+          </pre>
           </pre>
         </div>
       </div>
